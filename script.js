@@ -3,26 +3,26 @@ function getDogImages(num) {
   console.log('ran');
   fetch(`https://dog.ceo/api/breeds/image/random/${num}`)
     .then(response => response.json())
-    .then(jsonData => pulledData(jsonData));
+    .then(jsonData => pulledData(jsonData.message));
 }
 
 function submitNumber() {
   $('#dogs').submit(function(event) {
     event.preventDefault();
-    let numDogs = $('input').val();
+    let numDogs = $('.generate-number').val();
     getDogImages(numDogs);
   });
 }
 
-$(submitNumber);
-
 function displayImage(image) {
-  const arr =[]
-  arr.push(`<image src= "${image}"</image>`)
-return arr.join();}
+  return `<image src= "${image}"</image>`;
+}
 
 const pulledData = function(data) {
-  data.forEach
-  (repo => $('main').html(displayImage(repo))
-    )
+  const arr =[];
+  data.forEach(image => arr.push(displayImage(image)));
+  let string = arr.join();
+  $('main').html(string);
 };
+
+$(submitNumber);
